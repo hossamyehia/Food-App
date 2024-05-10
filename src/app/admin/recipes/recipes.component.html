@@ -1,0 +1,92 @@
+<section>
+  <div>
+    <div
+      *ngIf="isAdmin()"
+      class="d-flex justify-content-between align-items-center header-bg px-5 rounded-4"
+    >
+      <div class="text-white">
+        <h1>Recipes <span class="text-lighter">item</span></h1>
+        <p class="w-75">
+          You can now add your items that any user can order it from the
+          Application and you can edit
+        </p>
+      </div>
+      <div>
+        <img
+          src="../../../assets/images/Group 48102127.svg"
+          class="header-image"
+        />
+      </div>
+    </div>
+    <div
+      class="d-flex justify-content-between align-items-center mt-2 mb-1 px-1 rounded-4"
+    >
+      <div class="mt-1">
+        <h4 [ngClass]="{ 'my-0': isAdmin() }">Recipes Table Details</h4>
+        <p>You can check all details</p>
+      </div>
+      <div *ngIf="isAdmin()">
+        <a [routerLink]="['./addedit']">
+          <button class="button button-primary small-text">
+            Add New Recipe
+          </button>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="w-100">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            [(ngModel)]="name"
+            (keyup.enter)="getRecipes()"
+            placeholder="Ex. Nougat"
+          />
+          <button
+            *ngIf="name"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="resetNameSearch()"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="w-100">
+          <mat-label>Select Tag</mat-label>
+          <mat-select [(ngModel)]="tagId" (selectionChange)="getRecipes()">
+            <mat-option value="0">All</mat-option>
+            <mat-option *ngFor="let item of tagsData" [value]="item.id">{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="w-100">
+          <mat-label>Select Category</mat-label>
+          <mat-select [(ngModel)]="categoryId" (selectionChange)="getRecipes()">
+            <mat-option value="0">All</mat-option>
+            <mat-option *ngFor="let item of CategoriesData" [value]="item.id">{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="m-0 overflow-x-auto">
+      <app-table [table]="table" (operationData)="onOperation($event)"></app-table>
+      <mat-paginator
+        [length]="recipeData.totalNumberOfRecords"
+        [pageSize]="recipeData.pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="changePage($event)"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</section>

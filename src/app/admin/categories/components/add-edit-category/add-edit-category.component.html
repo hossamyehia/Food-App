@@ -1,0 +1,29 @@
+<section>
+  <div class="container">
+    <div class="row align-items-center m-1">
+      <h4 class="col-md-10">Add New Category</h4>
+      <button (click)="onNoClick()" class="btn text-danger col-md-2">
+        <i class="fa-light fa-2x fa-circle-xmark"></i>
+      </button>
+    </div>
+    <div class="row m-3">
+      <label for="name" class="h4 ps-0">Name</label>
+      <input
+        type="text"
+        id="name"
+        class="p-1"
+        placeholder="Name"
+        [(ngModel)]="data.name"
+      />
+    </div>
+    <div class="row m-3">
+      <button
+        [mat-dialog-close]="data"
+        class="button button-primary"
+        cdkFocusInitial
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</section>

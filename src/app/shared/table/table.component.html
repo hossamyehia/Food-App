@@ -1,0 +1,120 @@
+<table class="native-table">
+  <thead class="tableHeader">
+    <tr>
+      <th *ngFor="let header of table.headers | keyvalue : onCompare" class="fluid-padding">
+        {{ header.value }}
+      </th>
+      <th *ngFor="let image of table.images" class="fluid-padding">
+        {{ image.header }}
+      </th>
+      <th *ngFor="let obj of table.objs" class="fluid-padding">
+        {{ obj.header }}
+      </th>
+      <th *ngFor="let objArr of table.arrOfObj" class="fluid-padding">
+        {{ objArr.header }}
+      </th>
+      <th class="fluid-padding"></th>
+    </tr>
+  </thead>
+  <tbody class="tableBody">
+    <ng-container *ngIf="table.data && table.data.length">
+      <tr *ngFor="let row of table.data">
+        <td *ngFor="let header of table.headers | keyvalue : onCompare" class="fluid-md-padding">
+          {{ row[header.key] }}
+        </td>
+        <ng-container *ngIf="table.images && table.images.length">
+          <td *ngFor="let image of table.images" class="fluid-md-padding w-25">
+            <img
+              class="w-25"
+              [src]="
+                row[image.key] ? BaseUrl + row[image.key] : image.dummyPath
+              "
+            />
+          </td>
+        </ng-container>
+        <ng-container *ngIf="table.objs && table.objs.length">
+          <td *ngFor="let obj of table.objs" class="fluid-md-padding">
+            {{ row[obj.key][obj.propertyKey] }}
+          </td>
+        </ng-container>
+        <ng-container *ngIf="table.arrOfObj && table.arrOfObj.length">
+          <td *ngFor="let objArr of table.arrOfObj" class="fluid-md-padding">
+            <span *ngFor="let item of row[objArr.key]">
+              {{ item[objArr.propertyKey] }},
+            </span>
+          </td>
+        </ng-container>
+
+        <td class="fluid-md-padding">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button
+              mat-menu-item
+              *ngIf="table.operators.canView"
+              (click)="onClick(row, 'View')"
+            >
+              <mat-icon>visibility</mat-icon>
+              <span>View</span>
+            </button>
+            <button
+              *ngIf="table.operators.canEdit"
+              mat-menu-item
+              (click)="onClick(row, 'Edit')"
+            >
+              <a class="text-reset text-decoration-none">
+                <mat-icon>edit_square</mat-icon>
+                <span>Edit</span>
+              </a>
+            </button>
+            <button
+              mat-menu-item
+              *ngIf="table.operators.canFavorite"
+              (click)="onClick(row, 'Favorite')"
+            >
+              <mat-icon>favorite</mat-icon>
+              <span>Favorite</span>
+            </button>
+            <button
+              mat-menu-item
+              *ngIf="table.operators.canDelete"
+              (click)="onClick(row, 'Delete')"
+            >
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </td>
+      </tr>
+    </ng-container>
+    <tr *ngIf="table.data.length === 0">
+      <td
+        [attr.colspan]="
+          getLength(table.headers || {}) +
+          table.images.length +
+          table.arrOfObj.length +
+          table.objs.length + 
+          1
+        "
+      >
+        <div class="container">
+          <div class="row m-3 text-center">
+            <div class="d-flex flex-column align-items-center">
+              <img
+                class="p-1"
+                src="assets/images/delete-img.svg"
+                alt="No Data"
+              />
+              <h3 class="form-title p-1">No Data !</h3>
+              <p class="w-75 form-regular fluid-sm-text">
+                Unfortunately there are no data found right now, You can check
+                later.
+              </p>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,24 @@
+<section #sect>
+  <div
+    class="sideBar d-flex flex-column justify-content-around overflow-hidden min-vh-100 h-100"
+    #parElm
+  >
+    <div (click)="toggleSidebar()" role="button" class="h-25 d-flex justify-content-start align-items-center">
+      <img src="../../../../assets/images/logo-min.svg" alt="" />
+    </div>
+    <div class="h-75 pages-links">
+      <ul #elm>
+        <ng-container *ngFor="let page of pagesList">
+          <ng-container *ngIf="page.visiable">
+            <li>
+              <a [routerLink]="[page['link']]" routerLinkActive="active-link">
+                <i [class]="page['icon']" class="fluid-sm-text"></i>
+                <span class="fluid-sm-text">{{ page.title }}</span>
+                </a>
+            </li>
+          </ng-container>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</section>

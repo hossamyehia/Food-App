@@ -1,0 +1,31 @@
+<section>
+  <div class="container p-2">
+    <div class="row align-items-center m-1">
+        <h4 class="col-md-10">User Details</h4>
+        <button (click)="onNoClick()" class="btn text-danger col-md-2">
+          <i class="fa-light fa-2x fa-circle-xmark"></i>
+        </button>
+      </div>
+    <div
+      class="row align-items-center justify-content-around m-3 border-start border-3 border-primary"
+    >
+      <div class="col-md-4">
+        <img
+          class="p-1 w-75"
+          [src]="data.imagePath ? BaseUrl + data.imagePath : dummyImage"
+          alt="image"
+        />
+      </div>
+      <div class="col-md-8 text-start">
+        <h3>{{ data.userName }}</h3>
+        <p class="w-75">
+          <i class="fa-sharp fa-solid fa-at fixed-width text-primary"></i> {{ data.email }}
+        </p>
+        <p class="w-75">
+          <i class="fa-solid fa-mobile fixed-width text-primary"></i> {{ data.phoneNumber }}
+        </p>
+        <p><i class="fa-solid fa-user-group fixed-width text-primary"></i> {{ data.group.name }}</p>
+      </div>
+    </div>
+  </div>
+</section>

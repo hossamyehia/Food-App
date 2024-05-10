@@ -1,0 +1,45 @@
+<section>
+  <div>
+    <div
+      class="d-flex justify-content-between align-items-center header-bg px-5 rounded-4"
+    >
+      <div class="text-white">
+        <h1>Categories <span class="text-lighter">item</span></h1>
+        <p class="w-75">
+          You can now add your items that any user can order it from the
+          Application and you can edit
+        </p>
+      </div>
+      <div>
+        <img
+          src="../../../assets/images/Group 48102127.svg"
+          class="header-image"
+        />
+      </div>
+    </div>
+    <div
+      class="d-flex justify-content-between align-items-center mt-2 mb-1 px-1 rounded-4"
+    >
+      <div>
+        <h4 class="my-0">Categories Table Details</h4>
+        <p>You can check all details</p>
+      </div>
+      <div>
+        <button class="button button-primary small-text" (click)="openDialog()">
+          Add New Category
+        </button>
+      </div>
+    </div>
+    <div class="m-0 overflow-x-auto">
+      <app-table [table]="table" (operationData)="onOperation($event)"></app-table>
+      <mat-paginator
+        [length]="categoryData.totalNumberOfRecords"
+        [pageSize]="categoryData.pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="changePage($event)"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</section>

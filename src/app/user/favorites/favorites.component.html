@@ -1,0 +1,92 @@
+<section>
+    <div>
+      <div
+        class="d-flex justify-content-between align-items-center header-bg px-5 rounded-4"
+      >
+        <div class="text-white">
+          <h1>Favorite <span class="text-lighter">item</span></h1>
+          <p class="w-75">
+            You can now add your items that any user can order it from the
+            Application and you can edit
+          </p>
+        </div>
+        <div>
+          <img
+            src="../../../assets/images/Group 48102127.svg"
+            class="header-image"
+          />
+        </div>
+      </div>
+      
+      <div class="mx-0 my-3">
+        <table class="table table-striped">
+          <thead>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Tags</th>
+            <th>Categories</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of page">
+              <td>{{ item.recipe.name }}</td>
+              <td class="w-25">
+                <img
+                  class="w-25"
+                  [src]="item.recipe.imagePath ? BaseUrl + item.recipe.imagePath : dummyImage"
+                />
+              </td>
+              <td>
+                {{ item.recipe.price }}
+              </td>
+              <td>
+                {{ item.recipe.description }}
+              </td>
+              <td>
+                {{ item.recipe.tag.name }}
+              </td>
+              <td>
+                <span *ngFor="let category of item.recipe.category">
+                  {{ category.name }},
+                </span>
+              </td>
+              <td>
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="menu"
+                  aria-label="Menu"
+                >
+                  <mat-icon>more_horiz</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="viewRecipe(item.recipe)">
+                    <mat-icon>visibility</mat-icon>
+                    <span>View</span>
+                  </button>
+                  <button
+                    mat-menu-item
+                    (click)="deleteDialog(item.id)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <app-table [table]="table"></app-table> -->
+        <mat-paginator
+          [length]="recipeData.totalNumberOfRecords"
+          [pageSize]="recipeData.pageSize"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          (page)="changePage($event)"
+          aria-label="Select page"
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </section>
+  

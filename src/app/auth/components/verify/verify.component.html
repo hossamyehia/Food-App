@@ -1,0 +1,26 @@
+<section>
+    <div class="container">
+      <div class="row align-items-center m-1">
+        <h4 class="col-md-10">Verify Account</h4>
+      </div>
+      <div class="row m-3">
+        <h4 class="ps-0">Check Email For Code</h4>
+        <input
+          type="text"
+          class="p-1"
+          placeholder="Code"
+          [(ngModel)]="data.code"
+        />
+      </div>
+      <div class="row m-3">
+        <button
+          [mat-dialog-close]="data"
+          class="button button-primary"
+          [disabled]="data.code === null"
+        >
+          Verify
+        </button>
+      </div>
+    </div>
+  </section>
+  

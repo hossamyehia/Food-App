@@ -1,0 +1,87 @@
+<section>
+  <div>
+    <div
+      class="d-flex justify-content-between align-items-center bg-success bg-opacity-10 p-4 px-5 rounded-4"
+    >
+      <div class="text-black">
+        <h1 class="h2">Fill the <span class="text-success">Recipes</span> !</h1>
+        <p class="w-75">
+          you can now fill the meals easily using the table and form , click
+          here and sill it with the table !
+        </p>
+      </div>
+      <div>
+        <a [routerLink]="['../']" class="text-reset text-decoration-none">
+          <button class="button button-primary px-4">
+            All Recipes <i class="fa-solid fa-thin fa-arrow-right"></i>
+          </button>
+        </a>
+      </div>
+    </div>
+    <div class="container p-5">
+      <form [formGroup]="formData" (ngSubmit)="onSubmit()">
+        <mat-form-field class="w-100">
+          <mat-label>Recipe Name</mat-label>
+          <input formControlName="name" matInput placeholder="Name" />
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Price</mat-label>
+          <input formControlName="price" matInput placeholder="100.0" />
+          <label matSuffix class="me-3 fw-bold" aria-label="EGP"> EGP </label>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Select Tag</mat-label>
+          <mat-select formControlName="tagId">
+            <mat-option *ngFor="let item of tagsData" [value]="item.id">{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Select Categories</mat-label>
+          <mat-select formControlName="categoriesIds" multiple>
+            <mat-option *ngFor="let item of CategoriesData" [value]="item.id">{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Description</mat-label>
+          <textarea formControlName="description" matInput rows="5"></textarea>
+        </mat-form-field>
+        <div class="w-100">
+          <ngx-dropzone
+            (change)="onSelect($event)"
+            accept="image/jpeg,image/jpg,image/png,image/gif"
+            [multiple]="false"
+          >
+            <ngx-dropzone-label>
+              <i class="fa-solid fa-upload"></i> Upload Image
+            </ngx-dropzone-label>
+            <ngx-dropzone-image-preview
+              ngProjectAs="ngx-dropzone-preview"
+              *ngIf="image"
+              [file]="image"
+              [removable]="true"
+              (removed)="onRemove(image)"
+            >
+            </ngx-dropzone-image-preview>
+          </ngx-dropzone>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-end w-100">
+          <button
+            class="button button-danger m-1 mx-3 px-5"
+            type="reset"
+            (click)="resetAll()"
+          >
+            Cancel
+          </button>
+          <button class="button button-primary m-1 mx-3 px-5" type="submit">
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

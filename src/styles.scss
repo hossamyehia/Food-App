@@ -1,1 +1,381 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$food-app-primary: mat.define-palette(mat.$indigo-palette);
+$food-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$food-app-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$food-app-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $food-app-primary,
+      accent: $food-app-accent,
+      warn: $food-app-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($food-app-theme);
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.fluid-50-75-width {
+  width: 50%;
+  width: clamp(50%, -5vw + 25rem, 75%);
+}
+
+.fluid-md-padding {
+  padding-block: 0.5rem;
+  padding-block: clamp(0.4rem, -0.4vh + 0.6rem, 0.75rem) !important;
+  padding-inline: 1rem;
+  padding-inline: clamp(0.8rem, -0.4vw + 0.8rem, 1rem) !important;
+}
+
+.fluid-lg-padding {
+  padding-block: 0.75rem;
+  padding-block: clamp(0.6rem, -0.4vh + 0.6rem, 1rem) !important;
+  padding-inline: 1.25rem;
+  padding-inline: clamp(1rem, -0.4vw + 1rem, 1.25rem) !important;
+}
+
+.fluid-sm-text {
+  font-size: 0.825rem;
+  font-size: clamp(0.7rem, 0.4vw + 0.8rem, 1rem) !important;
+}
+
+.fluid-lg-text {
+  font-size: 1.6rem;
+  font-size: clamp(1rem, 1.2vw + 1rem, 1.6rem) !important;
+}
+
+.button {
+  $default-font-size: 18px;
+  $default-line-height: 25px;
+  $default-color: hsl(240, 3%, 23%);
+  $default-bg-color: hsl(0, 0%, 94%);
+  $default-border: 1.6px solid $default-color;
+  $default-border-radius: 0.375rem;
+  $default-padding: 8px;
+
+  font-size: $default-font-size;
+  line-height: $default-line-height;
+  color: $default-color;
+  background-color: $default-bg-color;
+  border: $default-border;
+  border-radius: $default-border-radius;
+  padding: $default-padding;
+
+  &:disabled {
+    color: $default-color !important;
+    background-color: $default-bg-color !important;
+    border-color: $default-bg-color !important;
+  }
+
+  &.small-text {
+    $default-font-size: 16px;
+    $default-padding: 10px;
+    font-size: $default-font-size;
+    padding: $default-padding;
+  }
+
+  &.button-primary {
+    $default-border: none;
+    $default-color: hsl(0, 0%, 100%);
+    $default-bg-color: hsl(131, 38%, 46%);
+
+    color: $default-color;
+    background-color: $default-bg-color;
+    border: $default-border;
+  }
+
+  &.button-danger {
+    $default-color: hsl(0, 90%, 43%);
+    $default-bg-color: transparent;
+
+    color: $default-color;
+    background-color: $default-bg-color;
+    border-color: $default-color;
+
+    &:hover {
+      $default-color: hsl(0, 0%, 100%);
+      $default-bg-color: hsl(0, 90%, 43%);
+
+      color: $default-color;
+      background-color: $default-bg-color;
+    }
+  }
+}
+
+.auth-bg {
+  background-image: url("assets/images/AuthBg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: inset 100vh 100vw 0 hsla(0, 0%, 0%, 0.7);
+}
+
+.box {
+  background-color: white;
+}
+
+.form-title {
+  color: hsl(0, 0%, 29%);
+}
+
+.form-regular {
+  color: hsl(0, 0%, 29%, 0.6);
+}
+
+.form-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  $default-color: hsl(131, 38%, 46%);
+  $dark-color: hsl(240, 3%, 23%);
+
+  a {
+    color: $default-color;
+
+    &.dark {
+      color: $dark-color;
+    }
+  }
+}
+
+.sideBar {
+  $padding-right: clamp(1rem, 2.054945055vw + 1rem, 4rem);
+  $margin-inline: clamp(5px, 5.054945055vw + 5px, 36px);
+  $min-width: clamp(5px, 5.054945055vw + 5px, 20px);
+  $duration: 0.25s;
+  $timing-func-default: cubic-bezier(0.93, 0.28, 0.72, 0.71);
+
+  position: fixed;
+  background-color: hsl(226, 33%, 18%);
+  width: calc(($margin-inline * 2) + $min-width);
+  max-width: inherit;
+  border-top-right-radius: 7vh;
+  z-index: 6;
+  transition: all $duration;
+  -webkit-transition: all $duration;
+  -moz-transition: all $duration;
+  transition-timing-function: $timing-func-default;
+
+  &.active-sidebar {
+    width: max-content;
+    border-top-right-radius: 10vh;
+
+    .pages-links {
+      ul {
+        li {
+          a {
+            span {
+              transform: translateX(0);
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .pages-links {
+    ul {
+      list-style: none;
+      padding-left: 0px;
+
+      li {
+        padding-block: 6px;
+        padding-right: $padding-right;
+        margin-block: 8px;
+        text-wrap: nowrap;
+        overflow: hidden;
+
+        a {
+          font-size: 1rem;
+          color: white;
+          text-decoration: none;
+          i {
+            font-size: 1.2rem;
+            min-width: $min-width;
+            margin-inline: $margin-inline;
+            color: white;
+          }
+          span {
+            display: inline-block;
+            vertical-align: top;
+            transform: translateX(calc($margin-inline / -2));
+            opacity: 0;
+            transition: all $duration;
+            -webkit-transition: all $duration;
+            -moz-transition: all $duration;
+            transition-timing-function: $timing-func-default;
+          }
+        }
+
+        &:has(a.active-link) {
+          background-color: hsla(149, 100%, 29%, 0.1);
+          border-left: 3px solid hsl(149, 100%, 29%);
+
+          i {
+            margin-left: calc($margin-inline - 3px);
+          }
+        }
+      }
+    }
+  }
+}
+
+.profilePic {
+  width: 30px;
+  img {
+    width: 100%;
+  }
+}
+
+span.text-lighter {
+  color: hsl(180, 2%, 88%);
+  font-weight: 200;
+}
+
+.header-bg {
+  background-image: url("./assets/images/header-bg-svg.svg");
+  background-color: hsl(149, 100%, 29%);
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.table {
+  .custom-padding {
+    padding: 3px 8px;
+  }
+}
+
+.mat-mdc-menu-trigger.mat-mdc-icon-button.mat-mdc-button-base {
+  --mdc-icon-button-state-layer-size: 26px;
+  position: relative;
+
+  .mat-mdc-button-touch-target {
+    height: var(--mdc-icon-button-state-layer-size);
+    width: var(--mdc-icon-button-state-layer-size);
+  }
+  .mat-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.fixed-width {
+  --width: 20px;
+  width: var(--width);
+}
+
+.native-table {
+  $header-bg-color: hsl(220, 18%, 90%);
+  $header-color: hsl(226, 33%, 18%);
+  $body-row-bg-color: hsl(220, 27%, 98%);
+
+  width: 100%;
+  empty-cells: show;
+  border-collapse: collapse;
+
+  .fluid-padding {
+    padding-block: 0.75rem;
+    padding-block: clamp(0.6rem, -0.4vh + 0.6rem, 1rem) !important;
+    padding-inline: 1.25rem;
+    padding-inline: clamp(1rem, -0.4vw + 1rem, 1.25rem) !important;
+  }
+
+  .fluid-md-padding {
+    padding-block: 0.5rem;
+    padding-block: clamp(0.4rem, -0.4vh + 0.6rem, 0.75rem) !important;
+    padding-inline: 1rem;
+    padding-inline: clamp(0.8rem, -0.4vw + 0.8rem, 1rem) !important;
+  }
+
+  .tableHeader {
+    background-color: $header-bg-color;
+    color: $header-color;
+
+    border: 1px solid $header-bg-color;
+
+    tr {
+      th {
+        margin: 0 auto;
+      }
+    }
+  }
+  .tableBody {
+    tr {
+      height: max-content;
+      td {
+        margin: 0 auto;
+      }
+      &:nth-of-type(even) {
+        background-color: $body-row-bg-color;
+      }
+    }
+  }
+}
+
+
+.native-dropdown {
+  .menu-panel {
+    display: flex;
+    flex-direction: column ;
+    min-width: 180px;
+    max-width: 280px;
+    background-color: rgba(255, 255, 255);
+    padding: 6px 0;
+
+    .menu-item {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      min-width: 64px;
+      line-height: 36px;
+      padding: 0 16px;
+      user-select: none;
+
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      flex: 1;
+
+      &:hover {
+        background-color: rgb(208, 208, 208);
+      }
+      &:active {
+        background-color: rgb(170, 170, 170);
+      }
+    }
+  }
+}

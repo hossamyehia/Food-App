@@ -1,0 +1,81 @@
+<section>
+  <div>
+    <div
+      class="d-flex justify-content-between align-items-center header-bg px-5 rounded-4"
+    >
+      <div class="text-white">
+        <h1>Users <span class="text-lighter">item</span></h1>
+        <p class="w-75">
+          You can now add your items that any user can order it from the
+          Application and you can edit
+        </p>
+      </div>
+      <div>
+        <img
+          src="../../../assets/images/Group 48102127.svg"
+          class="header-image"
+        />
+      </div>
+    </div>
+    <div
+      class="d-flex justify-content-between align-items-center mt-2 mb-1 px-1 rounded-4"
+    >
+      <div>
+        <h4 class="my-0">Users Table Details</h4>
+        <p>You can check all details</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <mat-form-field class="w-100">
+          <mat-label>Search By</mat-label>
+          <mat-select [(ngModel)]="searchBy">
+            <mat-option value="userName">User Name</mat-option>
+            <mat-option value="email">Email</mat-option>
+            <mat-option value="country">Counrty</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="w-100">
+          <mat-label>Search {{searchBy}}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="searchValue"
+            (keyup.enter)="getUsers()"
+            [placeholder]="searchBy"
+          />
+          <button
+            *ngIf="searchValue"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="resetSearch()"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="w-100">
+          <mat-label>Select Group</mat-label>
+          <mat-select [(ngModel)]="groups" (selectionChange)="getUsers()" multiple>
+            <mat-option value="1">Admins</mat-option>
+            <mat-option value="2">Users</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="m-0 overflow-x-auto">
+      <app-table [table]="table" (operationData)="onOperation($event)"></app-table>
+      <mat-paginator
+        [length]="userData.totalNumberOfRecords"
+        [pageSize]="userData.pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="changePage($event)"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,42 @@
+<section>
+  <div class="container p-2">
+    <div class="row align-items-center m-1">
+      <h4 class="col-md-10">Recipe Details</h4>
+      <button (click)="onNoClick()" class="btn text-danger col-md-2">
+        <i class="fa-light fa-2x fa-circle-xmark"></i>
+      </button>
+    </div>
+    <div class="row align-items-center justify-content-around m-3 border-start border-3 border-primary">
+      <div class="col-md-4">
+        <img
+          class="p-1 w-75"
+          [src]="data.imagePath ? BaseUrl + data.imagePath : dummyImage"
+          alt="image"
+        />
+      </div>
+      <div class="col-md-8 text-start">
+        <h3>{{ data.name }}</h3>
+        <p class="w-75">
+          {{ data.description }}
+        </p>
+      </div>
+    </div>
+    <div class="row m-3 border-start border-3 border-primary">
+      <div class="col-md-3">
+        <h4>Tag:</h4>
+        <p>{{ data.tag.name }}</p>
+      </div>
+      <div class="col-md-9 border-start border-3 border-primary">
+        <h4>Categoies:</h4>
+        <div class="d-flex align-items-center">
+          <p *ngFor="let item of data.category">{{ item.name }},</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="data.fav">
+      <div class="d-flex justify-content-end w-100">
+        <button class="button button-primary m-1 mx-3 px-5" type="submit">Save</button>
+      </div>
+    </div>
+  </div>
+</section>
